@@ -1,0 +1,6 @@
+fastapi
+strawberry-graphql
+motor
+python-dotenv
+uvicorn
+pydantic
