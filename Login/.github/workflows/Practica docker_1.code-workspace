@@ -1,0 +1,50 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../Practica docker_1"
+		},
+		{
+			"path": "../../../../../apprailway"
+		},
+		{
+			"path": "../../../../../ci-test-main"
+		},
+		{
+			"path": "../../../../../programacionDistribuida-main/pokeapi"
+		},
+		{
+			"path": "../../../../../railwayapp"
+		},
+		{
+			"path": "../../../../../reservas"
+		},
+		{
+			"path": "../../../../../Pet Food"
+		},
+		{
+			"path": "../../../../../../Mineria/clasificacion"
+		},
+		{
+			"path": "../../../../../../Mineria/redes neuronales convolucionales"
+		},
+		{
+			"path": "../../../../../../Mineria/redes neuronales recurrentes"
+		},
+		{
+			"path": "../../../../../../Mineria/RNN"
+		},
+		{
+			"path": "../../../../../../Mineria/forest"
+		},
+		{
+			"path": "../../../../../ejemplos"
+		},
+		{
+			"path": "../../../../../../Mineria/autoencoders"
+		},
+		{
+			"path": "../../../.."
+		}
+	],
+	"settings": {}
+}
