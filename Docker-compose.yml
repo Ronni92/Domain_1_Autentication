@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  login:
+    build: ./Login
+    container_name: login
+    env_file:
+      - ./Login/.env
+    ports:
+      - "3001:3000"
+    depends_on:
+      - postgres
+    networks:
+      - authnet
+
+  register:
+    build: ./Register
+    container_name: register
+    env_file:
+      - ./Register/.env
+    ports:
+      - "3002:3000"
+    depends_on:
+      - postgres
+    networks:
+      - authnet
+
+  roles:
+    build: ./Roles-permissions
+    container_name: roles
+    ports:
+      - "3004:3004"
+    depends_on:
+      - postgres
+    networks:
+      - authnet
+
+  user_profile:
+    build: ./user_profile
+    container_name: user_profile
+    env_file:
+      - ./User_Profile/.env
+    ports:
+      - "3005:8000"
+    depends_on:
+      - mongo
+    networks:
+      - authnet
+
+  postgres:
+    image: postgres:15
+    container_name: auth_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: nutripets
+    ports:
+      - "5432:5432"
+    networks:
+      - authnet
+
+  mongo:
+    image: mongo:6
+    container_name: auth_mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - authnet
+
+networks:
+  authnet:

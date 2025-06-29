@@ -1,20 +1,16 @@
-# Usar una imagen base de Node.js
-FROM node:16-alpine
+FROM node:18
 
-# Crear directorio de la app
-WORKDIR /usr/src/app
+# Crear directorio de trabajo
+WORKDIR /app
 
-# Copiar archivos de configuración
-COPY package*.json ./
+# Copiar archivos al contenedor
+COPY . .
 
 # Instalar dependencias
 RUN npm install
 
-# Copiar el resto de los archivos
-COPY . .
-
-# Exponer el puerto que usa la aplicación
+# Exponer puerto
 EXPOSE 3000
 
-# Comando para iniciar la aplicación
+# Comando para iniciar la app
 CMD ["npm", "start"]
