@@ -1,13 +1,16 @@
-#Docker file
+# Imagen base
 FROM node:18
 
+# Crear directorio de trabajo
 WORKDIR /app
 
+# Copiar archivos del microservicio
 COPY package*.json ./
 RUN npm install
+COPY . .
 
-COPY swagger.js .
-COPY app.js .
+# Exponer el puerto correcto
+EXPOSE 3000
 
-EXPOSE 80
-CMD ["npm", "start"]
+# Comando para iniciar la app
+CMD ["node", "app.js"]

@@ -5,21 +5,22 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Register Microservice API",
+      title: "Login Microservice API",
       version: "1.0.0",
-      description: "API para registro de usuarios",
+      description: "API para autenticación de usuarios",
     },
     servers: [
       {
-        url: "http://localhost:80", // Cambia a tu IP pública en producción si deseas
+        url: "http://localhost:3000", // Cambia si usas otro puerto
       },
     ],
   },
-  apis: ["./routes/*.js"], // Ruta donde están los comentarios Swagger
+  apis: ["./routes/*.js"],// Ajusta la ruta según tu estructura
 };
+
 const swaggerSpec = swaggerJsDoc(options);
-// Función para aplicar Swagger en la app Express
 function swaggerDocs(app) {
-  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  app.use("/docs/", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 }
+
 module.exports = swaggerDocs;

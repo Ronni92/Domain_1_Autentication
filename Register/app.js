@@ -7,9 +7,10 @@ const app = express();
 app.use(express.json());
 app.use('/api/users', userroutes);
 
-const PORT = process.env.PORT || 80;
-app.listen(PORT, () => {
-  console.log(`Registro de usuario escuchando en puerto ${PORT}`);
+
+// IMPORTANTE: escucha en el puerto correcto
+app.listen(3000, "0.0.0.0", () => {
+  console.log("Servidor escuchando...");
 });
 const swaggerDocs = require('./swagger');
 swaggerDocs(app); // Integración limpia
