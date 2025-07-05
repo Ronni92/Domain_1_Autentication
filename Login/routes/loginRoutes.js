@@ -30,7 +30,8 @@ const router = express.Router();
  *         description: Usuario autenticado correctamente
  *       401:
  *         description: Credenciales inválidas
- */
+ *
+*/
 router.post("/login", (req, res) => {
   // lógica de autenticación...
   res.status(200).json({ message: "Login OK" });
