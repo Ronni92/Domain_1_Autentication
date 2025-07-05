@@ -1,11 +1,11 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const userRoutes = require('./routes/userRoutes');
+const userRoutes = require('./routes/userroutes');
 
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.use('/api/users', userRoutes);
+app.use('/api/users', userroutes);
 
 const PORT = process.env.PORT || 80;
 app.listen(PORT, () => {
