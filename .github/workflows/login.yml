@@ -38,4 +38,4 @@ jobs:
             sudo docker stop login-service || true
             sudo docker rm login-service || true
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/login-service
-            sudo docker run -d --name login-service -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/login-service
+            sudo docker run -d --name login-service -p 80:3000 ${{ secrets.DOCKER_USERNAME }}/login-service
