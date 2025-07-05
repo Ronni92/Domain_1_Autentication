@@ -1,26 +1,50 @@
-deploy:
-  needs: build-and-push
-  runs-on: ubuntu-latest
+name: Deploy Login Microservice
 
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+on:
+  push:
+    paths:
+      - 'Login/**'
+    branches:
+      - Test
 
-    - name: Copiar script a EC2
-      uses: appleboy/scp-action@master
-      with:
-        host: ${{ secrets.EC2_HOST_LOGIN }}
-        username: ${{ secrets.EC2_USER_LOGIN }}
-        key: ${{ secrets.EC2_KEY_LOGIN }}
-        source: "Login/deploy-login.sh"
-        target: "~/deploy-login.sh"
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: SSH y ejecutar script como root
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.EC2_HOST_LOGIN }}
-        username: ${{ secrets.EC2_USER_LOGIN }}
-        key: ${{ secrets.EC2_KEY_LOGIN }}
-        script: |
-          chmod +x ~/deploy-login.sh
-          sudo bash ~/deploy-login.sh
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build Docker image
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/login-service ./Login
+
+      - name: Push Docker image
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/login-service
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Copy deployment script to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST_LOGIN }}
+          username: ${{ secrets.EC2_USER_LOGIN }}
+          key: ${{ secrets.EC2_KEY_LOGIN }}
+          source: "Login/deploy-login.sh"
+          target: "~/deploy-login.sh"
+
+      - name: SSH and run deployment script
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST_LOGIN }}
+          username: ${{ secrets.EC2_USER_LOGIN }}
+          key: ${{ secrets.EC2_KEY_LOGIN }}
+          script: |
+            chmod +x ~/deploy-login.sh
+            sudo bash ~/deploy-login.sh
