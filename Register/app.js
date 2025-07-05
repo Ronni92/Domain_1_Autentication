@@ -6,8 +6,6 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use('/api/users', userroutes);
-
-
 // IMPORTANTE: escucha en el puerto correcto
 app.listen(3000, "0.0.0.0", () => {
   console.log("Servidor escuchando...");
