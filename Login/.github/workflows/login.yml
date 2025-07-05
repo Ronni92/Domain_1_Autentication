@@ -26,16 +26,16 @@ jobs:
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
+
     steps:
-     - name: SSH and deploy container on EC2
-     uses: appleboy/ssh-action@master
-     with:
-     host: ${{ secrets.EC2_HOST_LOGIN }}
-     username: ${{ secrets.EC2_USER_LOGIN }}
-     key: ${{ secrets.EC2_KEY_LOGIN }}
-     script: |
-   script: |
-    sudo su -c "docker pull ${{ secrets.DOCKER_USERNAME }}/login-service"
-    sudo su -c "docker stop login-service || true"
-    sudo su -c "docker rm login-service || true"
-    sudo su -c "docker run -d --name login-service -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/login-service"
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST_LOGIN }}
+          username: ${{ secrets.EC2_USER_LOGIN }}
+          key: ${{ secrets.EC2_KEY_LOGIN }}
+          script: |
+            sudo docker stop login-service || true
+            sudo docker rm login-service || true
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/login-service
+            sudo docker run -d --name login-service -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/login-service
