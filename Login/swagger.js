@@ -19,7 +19,6 @@ const options = {
 };
 
 const swaggerSpec = swaggerJsDoc(options);
-
 function swaggerDocs(app) {
   app.use("/docs/", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 }
