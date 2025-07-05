@@ -21,7 +21,6 @@
  *       400:
  *         description: Error al crear el usuario
  */
-router.post('/register', registerUser);
 
 const express = require('express');
 const router = express.Router();
