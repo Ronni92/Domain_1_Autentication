@@ -1,16 +1,16 @@
+# Imagen base
 FROM node:18
 
 # Crear directorio de trabajo
 WORKDIR /app
 
-# Copiar archivos al contenedor
+# Copiar archivos del microservicio
+COPY package*.json ./
+RUN npm install
 COPY . .
 
-# Instalar dependencias
-RUN npm install
-
-# Exponer puerto
+# Exponer el puerto
 EXPOSE 3000
 
-# Comando para iniciar la app
-CMD ["npm", "start"]
+# Comando para iniciar
+CMD ["node", "app.js"]
