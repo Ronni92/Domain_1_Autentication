@@ -17,12 +17,9 @@ const options = {
   },
   apis: ["./routes/*.js"], // Ruta donde están los comentarios Swagger
 };
-
 const swaggerSpec = swaggerJsDoc(options);
-
 // Función para aplicar Swagger en la app Express
 function swaggerDocs(app) {
   app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 }
-
 module.exports = swaggerDocs;
