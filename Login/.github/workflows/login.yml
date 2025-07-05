@@ -5,7 +5,7 @@ on:
     paths:
       - 'Login/**'
     branches:
-      - main
+      - Test
 
 jobs:
   build-and-push:
