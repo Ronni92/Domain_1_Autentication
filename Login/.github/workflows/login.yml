@@ -5,6 +5,7 @@ on:
     paths:
       - 'Login/**'
     branches:
+      - main
       - Test
 
 jobs:
