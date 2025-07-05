@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Detener y eliminar contenedor anterior si existe
 sudo docker stop login-service || true
 sudo docker rm login-service || true
