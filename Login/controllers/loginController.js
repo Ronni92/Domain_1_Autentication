@@ -16,7 +16,6 @@ exports.login = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
-
     res.json({ token });
   } catch (err) {
     console.error(err);
@@ -39,7 +38,6 @@ exports.login = async (req, res) => {
     const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES_IN
     });
-
     res.json({ message: 'Login exitoso', token });
   } catch (err) {
     console.error(err);
