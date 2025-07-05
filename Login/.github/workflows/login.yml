@@ -38,4 +38,3 @@ jobs:
             docker stop login-service || true
             docker rm login-service || true
             docker run -d --name login-service -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/login-service
-
