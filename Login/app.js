@@ -9,8 +9,8 @@ swaggerDocs(app); // activa /docs
 app.get("/", (req, res) => res.send("Login funcionando"));
 
 // IMPORTANTE: escucha en el puerto correcto
-app.listen(3000, () => {
-  console.log("Login service corriendo en http://localhost:3000");
+app.listen(3000, "0.0.0.0", () => {
+  console.log("Login service corriendo en http://0.0.0.0:3000");
 });
 const loginRoutes = require("./routes/loginRoutes");
 app.use("/", loginRoutes);
