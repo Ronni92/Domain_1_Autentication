@@ -34,7 +34,8 @@ jobs:
      username: ${{ secrets.EC2_USER_LOGIN }}
      key: ${{ secrets.EC2_KEY_LOGIN }}
      script: |
-      docker pull ${{ secrets.DOCKER_USERNAME }}/login-service
-      docker stop login-service || true
-      docker rm login-service || true
-      docker run -d --name login-service -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/login-service
+   script: |
+    sudo docker pull ${{ secrets.DOCKER_USERNAME }}/login-service
+    sudo docker stop login-service || true
+    sudo docker rm login-service || true
+    sudo docker run -d --name login-service -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/login-service
