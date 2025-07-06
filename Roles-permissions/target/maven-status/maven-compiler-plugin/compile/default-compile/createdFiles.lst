@@ -1,0 +1,6 @@
+com\example\roles\RolesApplication.class
+com\example\roles\model\Role.class
+com\example\roles\repository\RoleRepository.class
+com\example\roles\controller\RoleController.class
+com\example\roles\factory\RoleFactory.class
+com\example\roles\service\RoleService.class

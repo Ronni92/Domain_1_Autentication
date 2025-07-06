@@ -1,4 +1,5 @@
 # Roles-permissions/Dockerfile
+
 # Usa una imagen base ligera con Java 17
 FROM eclipse-temurin:17-jdk-alpine
 
@@ -8,7 +9,7 @@ WORKDIR /app
 # Copia el .jar generado desde target
 COPY target/*.jar app.jar
 
-# Expone el puerto donde Spring Boot escucha (ajusta si usas otro)
+# Expone el puerto donde Spring Boot escucha
 EXPOSE 8080
 
 # Comando para ejecutar la app
