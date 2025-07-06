@@ -1,4 +1,6 @@
 //Rutas
+const cors = require("cors");
+app.use(cors());
 const express = require('express');
 const dotenv = require('dotenv');
 const userRoutes = require('./routes/userRoutes');
