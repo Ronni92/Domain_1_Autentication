@@ -7,6 +7,6 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 # Exponer el puerto correcto
-EXPOSE 3000
+EXPOSE 3001
 # Comando para iniciar la app
 CMD ["node", "app.js"]

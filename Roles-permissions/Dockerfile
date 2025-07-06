@@ -8,7 +8,7 @@ WORKDIR /app
 COPY target/*.jar app.jar
 
 # Expone el puerto donde Spring Boot escucha internamente
-EXPOSE 3004
+EXPOSE 3002
 
 # Comando para ejecutar la app
 ENTRYPOINT ["java", "-jar", "app.jar"]
