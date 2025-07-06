@@ -47,4 +47,5 @@ jobs:
             sudo docker stop roles-permissions-service || true
             sudo docker rm roles-permissions-service || true
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/roles-permissions-service
-            sudo docker run -d --name roles-permissions-service -p 82:8080 ${{ secrets.DOCKER_USERNAME }}/roles-permissions-service
+            # Actualiza el puerto externo 82 al interno 3004
+            sudo docker run -d --name roles-permissions-service -p 82:3004 ${{ secrets.DOCKER_USERNAME }}/roles-permissions-service
