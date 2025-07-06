@@ -1,0 +1,50 @@
+name: Deploy Roles-Permissions Microservice
+
+on:
+  push:
+    paths:
+      - 'Roles-permissions/**'
+    branches:
+      - Test
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build project with Maven
+        run: mvn -f ./Roles-permissions/pom.xml clean package -DskipTests
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build Docker image
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/roles-permissions-service ./Roles-permissions
+
+      - name: Push Docker image
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/roles-permissions-service
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST_ROLES }}
+          username: ${{ secrets.EC2_USER_ROLES }}
+          key: ${{ secrets.EC2_KEY_ROLES }}
+          script: |
+            sudo docker stop roles-permissions-service || true
+            sudo docker rm roles-permissions-service || true
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/roles-permissions-service
+            sudo docker run -d --name roles-permissions-service -p 82:8080 ${{ secrets.DOCKER_USERNAME }}/roles-permissions-service
